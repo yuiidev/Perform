@@ -8,12 +8,6 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
-  workflow_dispatch:
-    inputs:
-      version:
-        description: 'Release version (e.g. v0.1.0)'
-        required: true
-        default: v0.1
 
 jobs:
   build:
@@ -33,5 +27,4 @@ jobs:
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v2.2.4
       with:
-        name: Perform-${{ github.event.inputs.version }}
         path: /home/runner/work/Perform/Perform/target/Perform-1.0-SNAPSHOT.jar

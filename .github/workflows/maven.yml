@@ -13,9 +13,7 @@ on:
       version:
         description: 'Release version (e.g. v0.1.0)'
         required: true
-      message:
-        description: 'Tag message'
-        required: true
+        default: v0.1
 
 jobs:
   build:
@@ -32,13 +30,7 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn -B package --file pom.xml
-    - name: Create Tag
-      uses: negz/create-tag@v1
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v2.2.4
       with:
-        version: ${{ github.event.inputs.version }}
-        message: ${{ github.event.inputs.message }}
-    - name: Create Release
-      uses: ncipollo/release-action@v1.8.8
-      with:
-        artifactErrorsFailBuild: true
-        artifacts: /home/runner/work/Perform/Perform/target/Perform-1.0-SNAPSHOT.jar
+        name: Perform-${{ github.event.inputs.version }}

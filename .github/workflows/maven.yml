@@ -8,6 +8,14 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version (e.g. v0.1.0)'
+        required: true
+      message:
+        description: 'Tag message'
+        required: true
 
 jobs:
   build:
@@ -24,8 +32,13 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn -B package --file pom.xml
+    - name: Create Tag
+      uses: negz/create-tag@v1
+      with:
+        version: ${{ github.event.inputs.version }}
+        message: ${{ github.event.inputs.message }}
     - name: Create Release
       uses: ncipollo/release-action@v1.8.8
       with:
         artifactErrorsFailBuild: true
-        artifact: /home/runner/work/Perform/Perform/target/Perform-1.0-SNAPSHOT.jar
+        artifacts: /home/runner/work/Perform/Perform/target/Perform-1.0-SNAPSHOT.jar

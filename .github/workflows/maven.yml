@@ -34,3 +34,4 @@ jobs:
       uses: actions/upload-artifact@v2.2.4
       with:
         name: Perform-${{ github.event.inputs.version }}
+        path: /home/runner/work/Perform/Perform/target/Perform-1.0-SNAPSHOT.jar

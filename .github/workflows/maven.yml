@@ -24,3 +24,8 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn -B package --file pom.xml
+    - name: Create Release
+      uses: ncipollo/release-action@v1.8.8
+      with:
+        artifactErrorsFailBuild: true
+        artifact: /home/runner/work/Perform/Perform/target/Perform-1.0-SNAPSHOT.jar
